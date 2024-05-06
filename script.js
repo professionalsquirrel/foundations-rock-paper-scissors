@@ -23,21 +23,34 @@ function getHumanChoice() {
     return rslt;
 }
 
-function playRound(humanChoice, computerChoice){
+let humanScore = 0;
+let computerScore = 0;
+let numberOfRounds = 0;
+let resultText = document.querySelector(".results");
+
+function playRound(humanChoice){
+let computerChoice = getComputerChoice();
+numberOfRounds++;
     /* if h wins then h++ and print 'You lose' to console log
     if c wins then c++ and print 'You win' to console log
     else it is a tie and scores remain unchanged */
     if ((humanChoice=='Rock' && computerChoice=='Scissors')
     || (humanChoice=='Paper' && computerChoice=='Rock') 
     || (humanChoice=='Scissors' && computerChoice=='Paper')){
-        console.log("You win! "+humanChoice+" beats "+computerChoice+".")
+        resultText.textContent = "You win! "+humanChoice+" beats "+computerChoice+".";
+        console.log("You win! "+humanChoice+" beats "+computerChoice+".");
+        console.log(resultText.textContent);
         humanScore++;
     }
     else if (humanChoice==computerChoice){
-        console.log("It's a tie! You both chose "+humanChoice+".")
+        resultText.textContent = "It's a tie! You both chose "+humanChoice+".";
+        console.log("It's a tie! You both chose "+humanChoice+".");
+        console.log(resultText.textContent);
     }
     else {
-        console.log("You lose! "+ computerChoice + " beats " + humanChoice+".")
+        resultText.textContent = "You lose! "+ computerChoice + " beats " + humanChoice+".";
+        console.log("You lose! "+ computerChoice + " beats " + humanChoice+".");
+        console.log(resultText.textContent);
         computerScore++;
     }
     return null;
@@ -93,3 +106,33 @@ function playGame() {
 }
 
 //playGame();
+
+
+const buttons = document.getElementsByTagName("button");
+console.log(buttons);
+
+for (let i = 0; i < buttons.length; i++){
+    let b = buttons[i];
+    console.log("The text inside is: " + b.textContent);
+    b.addEventListener("click",
+    () => playRound(b.textContent));
+}
+
+if (numberOfRounds == 5) {
+    if (humanScore>computerScore) { 
+        resultText.textContent = 
+        "You win! Your score:"+humanScore+
+        ". Computer score:"+computerScore+".";
+    }
+    else if (computerScore>humanScore) {
+        resultText.textContent = "You lose! Your score:"+humanScore+
+        ". Computer score:"+computerScore+".";
+    }
+    else { 
+        resultText.textContent = "It's a tie! Your score:"+humanScore+
+        ". Computer score:"+computerScore+".";
+    }
+        computerScore = 0;
+        humanScore=0;
+        numberOfRounds=0;
+    }
