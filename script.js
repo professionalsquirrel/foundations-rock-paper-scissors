@@ -44,9 +44,9 @@ function playRound(humanChoice, computerChoice){
 }
 
 /*const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
+  const computerSelection = getComputerChoice();
 
-playRound(humanSelection, computerSelection);*/
+  playRound(humanSelection, computerSelection);*/
 
 function playGame() {
 
@@ -92,4 +92,4 @@ function playGame() {
     return null;
 }
 
-playGame();
+//playGame();
