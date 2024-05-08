@@ -24,7 +24,6 @@ for (let i = 0; i < buttons.length; i++){
 }
 
 
-
 //A function that generates the computer's choice
 function getComputerChoice() {
     let n = Math.random();
@@ -44,6 +43,8 @@ calculates winner of the round, and updates HTML text */
 function playRound(humanChoice){
 let computerChoice = getComputerChoice();
 numberOfRounds++;
+    playerSelectionText.textContent = humanChoice;
+    computerSelectionText.textContent = computerChoice;
     /* if h wins then h++ and print 'You lose' to console log
     if c wins then c++ and print 'You win' to console log
     else it is a tie and scores remain unchanged */
@@ -52,6 +53,7 @@ numberOfRounds++;
     || (humanChoice=='Scissors' && computerChoice=='Paper')){
         resultText.textContent = "You win! "+humanChoice+" beats "+computerChoice+".";
         playerScore++;
+        playerScoreText.textContent = playerScore;
     }
     else if (humanChoice==computerChoice){
         resultText.textContent = "It's a tie! You both chose "+humanChoice+".";
@@ -59,81 +61,47 @@ numberOfRounds++;
     else {
         resultText.textContent = "You lose! "+ computerChoice + " beats " + humanChoice+".";
         computerScore++;
+        computerScoreText.textContent = computerScore;
     }
 
     if (numberOfRounds === 5) {
         //Compare scores and determine winner
         //Update resultText with game winner
-        //Offer option to restart game "click to restart"
-            //If restarting then all vars to 0 and empty out the text boxes
+        generateWinner();
+        disableButtons()
     return null;
 }
 }
 
-function playGame() {
-
-    let playerScore = 0;
-    let computerScore = 0;
-    let humanSelection = getHumanChoice();
-    let computerSelection = getComputerChoice();
-    function playRound(humanChoice, computerChoice){
-        /* if h wins then h++ and print 'You lose' to console log
-        if c wins then c++ and print 'You win' to console log
-        else it is a tie and scores remain unchanged */
-        if ((humanChoice=='Rock' && computerChoice=='Scissors')
-        || (humanChoice=='Paper' && computerChoice=='Rock') 
-        || (humanChoice=='Scissors' && computerChoice=='Paper')){
-            console.log("You win! "+humanChoice+" beats "+computerChoice+".")
-            playerScore++;
-        }
-        else if (humanChoice==computerChoice){
-            console.log("It's a tie! You both chose "+humanChoice+".")
-    
-        }
-        else {
-            console.log("You lose! "+ computerChoice + " beats " + humanChoice+".")
-            computerScore++;
-        }
-        return null;
-    }
-    let i = 0;
-    while (i<5){
-        while (!humanSelection) { 
-            console.log("Your input is invalid. Please pick Rock, Paper, or Scissors.");
-            humanSelection = getHumanChoice();
-        }
-        playRound(humanSelection, computerSelection);
-        humanSelection = getHumanChoice();
-        computerSelection = getComputerChoice();
-        i++;
-    }
-    
-    if (playerScore>computerScore) { console.log("You win! Your score:"+playerScore+". Computer score:"+computerScore+".")}
-    else if (computerScore>playerScore) {console.log("You lose! Your score:"+playerScore+". Computer score:"+computerScore+".")}
-    else {console.log("It's a tie! Your score:"+playerScore+". Computer score:"+computerScore+".")}
-    return null;
-}
-
-//playGame();
-
-
-
-
-if (numberOfRounds == 5) {
+//Function that calculates the winner of the game. Call only after 5 rounds.
+function generateWinner(){
     if (playerScore>computerScore) { 
-        resultText.textContent = 
-        "You win! Your score:"+playerScore+
-        ". Computer score:"+computerScore+".";
-    }
+        resultText.textContent = "You won the game! Your score: "+playerScore+" Computer score: "+computerScore}
     else if (computerScore>playerScore) {
-        resultText.textContent = "You lose! Your score:"+playerScore+
-        ". Computer score:"+computerScore+".";
-    }
-    else { 
-        resultText.textContent = "It's a tie! Your score:"+playerScore+
-        ". Computer score:"+computerScore+".";
-    }
-        computerScore = 0;
-        playerScore = 0;
-        numberOfRounds = 0;
-    }
+        resultText.textContent = "You lost the game! Your score: "+playerScore+" Computer score: "+computerScore}
+    else {
+        resultText.textContent = "The game is over! It's a tie! Your score: "+playerScore+" Computer score: "+computerScore}
+}
+
+//Function that is called when player chooses to replay the game. 
+//Reinitializes all variables.
+/*function restartGame(){
+    playerScore = 0;
+    computerScore = 0;
+    numberOfRounds = 0;
+    playerScoreText.textContent = 0;
+    playerSelectionText.textContent = "";
+    computerScoreText.textContent = 0;
+    computerSelectionText.textContent = "";
+    resultText.textContent = "Results will be shown here.";
+}*/
+
+//Function that disables Rock Paper Scissors buttons once the game is over
+function disableButtons(){
+    const buttons = document.getElementsByTagName("button");
+    for (let i = 0; i < buttons.length; i++){
+        let b = buttons[i];
+        b.disabled=true;
+}
+
+}
