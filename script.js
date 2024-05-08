@@ -66,8 +66,8 @@ numberOfRounds++;
 
     if (numberOfRounds === 5) {
         //Compare scores and determine winner
-        //Update resultText with game winner
         generateWinner();
+        //Update resultText with game winner
         disableButtons()
     return null;
 }
@@ -82,19 +82,6 @@ function generateWinner(){
     else {
         resultText.textContent = "The game is over! It's a tie! Your score: "+playerScore+" Computer score: "+computerScore}
 }
-
-//Function that is called when player chooses to replay the game. 
-//Reinitializes all variables.
-/*function restartGame(){
-    playerScore = 0;
-    computerScore = 0;
-    numberOfRounds = 0;
-    playerScoreText.textContent = 0;
-    playerSelectionText.textContent = "";
-    computerScoreText.textContent = 0;
-    computerSelectionText.textContent = "";
-    resultText.textContent = "Results will be shown here.";
-}*/
 
 //Function that disables Rock Paper Scissors buttons once the game is over
 function disableButtons(){
